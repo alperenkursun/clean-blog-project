@@ -1,13 +1,26 @@
 const express = require("express");
+const mongoose = require("mongoose");
+
 let ejs = require("ejs");
+
+const Blog = require("./models/Blog");
 const app = express();
+
+mongoose.set("strictQuery", false);
+mongoose.connect("mongodb://127.0.0.1:27017/clean-test-db");
 
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-app.get("/", function (req, res) {
-  res.render("index");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.get("/", async (req, res) => {
+  const blog = await Blog.find({});
+  res.render("index", {
+    blog,
+  });
 });
 
 app.get("/about", function (req, res) {
@@ -18,8 +31,9 @@ app.get("/addnew", function (req, res) {
   res.render("add_post");
 });
 
-app.get("/post", function (req, res) {
-  res.render("post");
+app.post("/blog", async (req, res) => {
+  await Blog.create(req.body);
+  res.redirect("/");
 });
 
 port = 3001;
