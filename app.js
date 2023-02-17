@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
-let ejs = require("ejs");
-
-const Blog = require("./models/Blog");
 const app = express();
+const BlogControllers = require("./controllers/blogControllers");
+const PageControllers = require("./controllers/pageControllers");
 
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://127.0.0.1:27017/clean-test-db");
@@ -15,32 +15,21 @@ app.use(express.static("public"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"],
+  })
+);
 
-app.get("/", async (req, res) => {
-  const blog = await Blog.find({});
-  res.render("index", {
-    blog,
-  });
-});
+app.get("/", BlogControllers.getAllPost);
+app.get("/post/:id", BlogControllers.getPost);
+app.post("/blog", BlogControllers.createPost);
+app.put("/post/:id", BlogControllers.updatePost);
+app.delete("/post/:id", BlogControllers.deletePost);
 
-app.get("/post/:id", async function (req, res) {
-  const id = req.params.id;
-  const post = await Blog.findById(id);
-  res.render("post", { post });
-});
-
-app.get("/about", function (req, res) {
-  res.render("about");
-});
-
-app.get("/addnew", function (req, res) {
-  res.render("add_post");
-});
-
-app.post("/blog", async (req, res) => {
-  await Blog.create(req.body);
-  res.redirect("/");
-});
+app.get("/about", PageControllers.getAboutPage);
+app.get("/addnew", PageControllers.getAddPage);
+app.get("/post/edit/:id", PageControllers.getEditPage);
 
 port = 3001;
 app.listen(port, () => {

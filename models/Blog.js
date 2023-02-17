@@ -5,7 +5,6 @@ const blogSchema = new Schema({
   title: String,
   content: String,
   author: String,
-  image: String,
   date: { type: Date, default: Date.now() },
 });
 

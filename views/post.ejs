@@ -68,7 +68,12 @@
             <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
         </div>
       </div>
-    </div> 
+    </div>  
+
+    <div class="w-100 d-flex justify-content-center align-items-center">
+       <a href="/post/edit/<%= post._id %>" class="p-3 bg-info text-white mx-2 rounded shadow-sm">Update</a>
+       <a href="/post/<%= post._id %>?_method=DELETE" class="p-3 bg-danger text-white mx-2 rounded shadow-sm">Delete</a>
+    </div>
 
   <hr>
 

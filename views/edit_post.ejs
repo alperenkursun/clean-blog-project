@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>Add New Post</h1>
+            <h1>Edit Post</h1>
 
           </div>
         </div>
@@ -24,30 +24,30 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <form method="POST" action="/blog" >
+        <form method="POST" action="/post/<%= post._id %>?_method=PUT" >
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <label>Post Title</label>
-              <input name="title" type="text" class="form-control" placeholder="Post Title"  >
+              <label>Edit Post Title</label>
+              <input name="title" type="text" class="form-control" placeholder="Edit Post Title"  >
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <label>Post Author</label>
-              <input name="author" type="text" class="form-control" placeholder="Post Author"  >
+              <label>Edit Post Author</label>
+              <input name="author" type="text" class="form-control" placeholder="Edit Post Author"  >
               <p class="help-block text-danger"></p>
             </div>
           </div>
          
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <label>Post Content</label>
-              <textarea name="content" rows="5" class="form-control" placeholder="Post Content"  ></textarea>
+              <label>Edit Post Content</label>
+              <textarea name="content" rows="5" class="form-control" placeholder="Edit Post Content"  ></textarea>
               <p class="help-block text-danger"></p>
             </div> 
           </div>
-          
+         
           <br>
           <div id="success"></div>
           <button type="submit" class="btn btn-primary" >Send</button>
