@@ -3,11 +3,13 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 
 const app = express();
-const BlogControllers = require("./controllers/blogControllers");
-const PageControllers = require("./controllers/pageControllers");
+const BlogControllers = require("./controllers/blogcontrollers");
+const PageControllers = require("./controllers/pagecontrollers");
 
 mongoose.set("strictQuery", false);
-mongoose.connect("mongodb://127.0.0.1:27017/clean-test-db");
+mongoose.connect(
+  "mongodb+srv://clean-blog-user:EzqoDtC31Uca7B0A@cluster0.p502xvg.mongodb.net/clean-test-db"
+);
 
 app.set("view engine", "ejs");
 
@@ -31,7 +33,7 @@ app.get("/about", PageControllers.getAboutPage);
 app.get("/addnew", PageControllers.getAddPage);
 app.get("/post/edit/:id", PageControllers.getEditPage);
 
-port = 3001;
+port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Sunucu ${port} portunda başlatıldı!`);
 });
